@@ -21,6 +21,24 @@
     iFrame.src = `https://${inputVal}`;
     document.body.appendChild(iFrame);
   });
+
+  let Url = "https://avatars1.githubusercontent.com/u/1";
+
+  // function httpGetAsync(theUrl, callback) {
+  //   var xmlHttp = new XMLHttpRequest();
+  //   xmlHttp.onreadystatechange = function () {
+  //     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+  //       callback(xmlHttp.responseText);
+  //   };
+  //   xmlHttp.open("GET", theUrl, true); // true for asynchronous
+  //   xmlHttp.send(null);
+  // }
+
+  var img = document.createElement("img");
+  img.src =Url
+  document.body.appendChild(img);
+  // httpGetAsync(Url, function () {
+  // });
 </script>
 
 <style>
