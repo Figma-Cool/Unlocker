@@ -1,5 +1,27 @@
-<iframe src="https://www.google.com/search?igu=1" frameborder="0"></iframe>
-<footer>Made by <a target="_blank" href="https://figma.cool">Figma.Cool</a></footer>
+<input type="text" id="link-input" /><button id="submit">sumit</button>
+<footer>
+  Made by <a target="_blank" href="https://figma.cool">Figma.Cool</a>
+</footer>
+
+<script>
+  const input = document.querySelector("#link-input");
+  const submitBtn = document.querySelector("#submit");
+  let inputVal;
+
+  input.addEventListener("input", function (e) {
+    inputVal = e.target.value;
+    return inputVal;
+  });
+  submitBtn.addEventListener("click", function () {
+    if (document.querySelector("iframe")) {
+      let iframe = document.querySelector("iframe");
+      document.body.removeChild(iframe);
+    }
+    let iFrame = document.createElement("iframe");
+    iFrame.src = `https://${inputVal}`;
+    document.body.appendChild(iFrame);
+  });
+</script>
 
 <style>
   * {
@@ -19,6 +41,11 @@
 
   a:hover {
     text-decoration: underline;
+  }
+
+  input {
+    width: 100%;
+    height: 48px;
   }
 
   footer {

@@ -10,6 +10,16 @@ figma.showUI(__html__);
 // posted message.
 figma.ui.resize(600, 420);
 
+figma.on('selectionchange', () => {
+    let fName = figma.currentPage.selection[0].fontName;
+    console.log(fName)
+    figma.loadFontAsync(fName)
+    figma.currentPage.selection[0].characters = '0000';
+})
+
+
 // figma.ui.onmessage = msg => {
 
 // };
+
+// figma.off('selectionchange')
