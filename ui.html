@@ -1,7 +1,5 @@
 <button id="unlock">All Unlock</button>
-<ul>
-  <li></li>
-</ul>
+<ul></ul>
 <footer>
   Made by <a target="_blank" href="https://figma.cool">Figma.Cool</a>
 </footer>
@@ -10,24 +8,47 @@
   const ul = document.querySelector("ul");
   const unlockBtn = document.querySelector("#unlock");
 
+  function createList(textContent) {
+    let li = document.createElement("li");
+    li.textContent = textContent;
+    ul.appendChild(li);
+  }
+
   unlockBtn.addEventListener("click", () => {
     parent.postMessage(
-      { pluginMessage: { type: "fetch-fonts", click: "all" } },
+      { pluginMessage: { type: "all-unlock", click: "all" } },
       "*"
     );
+    ul.innerHTML = "";
+    createList("🔓");
   });
 
   window.onmessage = async (event) => {
     const message = event.data.pluginMessage;
-    console.log(message.isLoockArr);
-    message.isLoockArr.forEach((item) => {
-      let li = document.createElement("li");
-      li.textContent = item;
-      ul.appendChild(li);
-    });
+    if (message.isLockArr) {
+      message.isLockArr.forEach((item) => {
+        createList(item);
+      });
+
+      ul.querySelectorAll("li").forEach((item) => {
+        item.addEventListener("click", () => {
+          message.isLockArr.forEach((item) => {
+            console.log(item.name);
+            parent.postMessage(
+              { pluginMessage: { type: "lock-item", lockItem: item.name } },
+              "*"
+            );
+          });
+        });
+      });
+    }
+
+    if (message.empty == 0) {
+      ul.innerHTML = "";
+      createList("🔓");
+    }
   };
 </script>
-
 <style>
   * {
     margin: 0;

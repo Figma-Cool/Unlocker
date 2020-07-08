@@ -1,51 +1,57 @@
-figma.showUI(__html__);
-
-figma.ui.resize(600, 420);
-
+figma.showUI(__html__, { width: 300, height: 400 });
 
 const node = figma.root.findAll()
-let isLoockArr = [];
+let isLockArr = [];
+
 
 node.forEach(item => {
     if (item.locked) {
         let node = [item.name, item.id, item.type]
-        isLoockArr.push(node)
+        isLockArr.push(node)
     }
-    return isLoockArr
+    return isLockArr
 });
 
 figma.ui.postMessage({
-    isLoockArr
+    isLockArr,
 })
 
-function findLockNodes(nodeType,) {
-
-}
-
 figma.ui.onmessage = (msg) => {
-    if (msg.ans === 'all') {
-        figma.root.findAll().forEach(item, () => {
-            item.locked = false
+    if (msg.click === 'all') {
+        node.forEach(item => {
+            if (item.locked) {
+                item.locked = false
+            }
         })
-
     }
-    console.log(msg)
 }
 
+figma.on('selectionchange', () => {
+    isLockArr = []
+    if (isLockArr == '') {
+        figma.ui.postMessage({
+            empty: 0
+        })
+    }
+    node.forEach(item => {
+        if (item.locked) {
+            let node = [item.name, item.id, item.type]
+            isLockArr.push(node)
+        }
+        return isLockArr
+    });
 
-// figma.off('selectionchange')
-// "DOCUMENT" |
-//     "PAGE" |
-//     "SLICE" |
-//     "FRAME" |
-//     "GROUP" |
-//     "COMPONENT" |
-//     "INSTANCE" |
-//     "BOOLEAN_OPERATION" |
-//     "VECTOR" |
-//     "STAR" |
-//     "LINE" |
-//     "ELLIPSE" |
-//     "POLYGON" |
-//     "RECTANGLE" |
-//     "TEXT"
+    if (isLockArr) {
+        figma.ui.postMessage({
+            isLockArr,
+        })
+    }
+})
+
+if (isLockArr == '') {
+    figma.ui.postMessage({
+        isLockArr,
+        empty: 0
+    })
+}
+
