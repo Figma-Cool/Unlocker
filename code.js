@@ -26,10 +26,9 @@ figma.ui.onmessage = (msg) => {
     }
 
     if (msg.clickItem) {
-        console.log('ssss')
-        let oo = []
-        oo.push('0:5123')
-        figma.currentPage.selection = oo
+        let clickItem = []
+        clickItem.push(figma.getNodeById(msg.clickItem))
+        figma.currentPage.selection = clickItem
     }
 }
 
@@ -51,13 +50,14 @@ figma.on('selectionchange', () => {
     if (isLockArr) {
         figma.ui.postMessage({
             isLockArr,
+            empty: 1
         })
-    }
+    } 
 })
 
 if (isLockArr == '') {
     figma.ui.postMessage({
-        isLockArr,
+        // isLockArr,
         empty: 0
     })
 }

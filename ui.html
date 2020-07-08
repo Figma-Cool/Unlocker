@@ -1,5 +1,7 @@
-<button id="unlock">All Unlock</button>
-<ul></ul>
+<main>
+  <button id="unlock">All Unlock</button>
+  <ul></ul>
+</main>
 <footer>
   Made by <a target="_blank" href="https://figma.cool">Figma.Cool</a>
 </footer>
@@ -21,31 +23,31 @@
       "*"
     );
     ul.innerHTML = "";
-    createList("🔓");
+    createList("🔓 All layers Unlocked");
   });
 
   window.onmessage = async (event) => {
     const message = event.data.pluginMessage;
     if (message.isLockArr) {
       message.isLockArr.forEach((item) => {
-        console.log(item[1]);
         createList(item, item[1]);
       });
 
       ul.querySelectorAll("li").forEach((item) => {
         item.addEventListener("click", () => {
-          console.log(item.dataset.id)
           parent.postMessage(
-            { pluginMessage: { type: "lock-item", clickItem: item.dataset.id } },
+            {
+              pluginMessage: { type: "lock-item", clickItem: item.dataset.id },
+            },
             "*"
           );
         });
       });
     }
 
-    if (message.empty == 0) {
+    if (message.empty === 0 && message.isLockArr == null) {
       ul.innerHTML = "";
-      createList("🔓");
+      createList("🔓 All layers Unlocked");
     }
   };
 </script>
@@ -57,7 +59,7 @@
 
   body {
     font-family: -apple-system, sans-serif;
-    color: #8b8eab;
+    color: #3d4373;
   }
 
   a {
@@ -75,6 +77,7 @@
   }
 
   footer {
+    z-index: 999;
     width: calc(100% - 24px);
     padding: 8px 12px;
     position: fixed;
@@ -91,5 +94,32 @@
   iframe {
     width: 600px;
     height: 420px;
+  }
+
+  ul {
+    width: 100%;
+    padding: 24px 0;
+  }
+
+  li {
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 300;
+    padding: 8px 12px;
+    border-top: 1px solid hsl(240, 20%, 92%);
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  li:last-child {
+    border-bottom: 1px solid hsl(240, 20%, 92%);
+  }
+
+  li:hover {
+    background: #f6f6f9;
+  }
+
+  main {
+    margin: 40px 0;
   }
 </style>
