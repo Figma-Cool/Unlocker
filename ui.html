@@ -10,10 +10,26 @@
   const ul = document.querySelector("ul");
   const unlockBtn = document.querySelector("#unlock");
 
-  function createList(textContent, id) {
+  function createList(textContent, id, type) {
     let li = document.createElement("li");
-    li.textContent = textContent;
+    let unlockBtn = document.createElement("i");
+    let typeTag = document.createElement("span");
+    let group = document.createElement("div");
     li.setAttribute("data-id", id);
+    unlockBtn.textContent = "Unlock";
+    typeTag.textContent = type;
+    type === "FRAME" ? `${(li.textContent = `🖼 ` + textContent)}` : null;
+    type === "VECTOR" ? `${(li.textContent = `🔏 ` + textContent)}` : null;
+    type === "ELLIPSE" ? `${(li.textContent = `🔏 ` + textContent)}` : null;
+    type === "STAR" ? `${(li.textContent = `⭐️ ` + textContent)}` : null;
+    type === "RECTANGLE" ? `${(li.textContent = `⏹ ` + textContent)}` : null;
+    type === "ELLIPSE" ? `${(li.textContent = `💿 ` + textContent)}` : null;
+    type === "TEXT" ? `${(li.textContent = `🈳 ` + textContent)}` : null;
+    type === "GROUP" ? `${(li.textContent = `📦 ` + textContent)}` : null;
+    type === "COMPONENT" ? `${(li.textContent = `🧩 ` + textContent)}` : null;
+    group.appendChild(typeTag);
+    group.appendChild(unlockBtn);
+    li.appendChild(group);
     ul.appendChild(li);
   }
 
@@ -30,11 +46,11 @@
     const message = event.data.pluginMessage;
     if (message.isLockArr) {
       message.isLockArr.forEach((item) => {
-        createList(item, item[1]);
+        createList(item[0], item[1], item[2]);
       });
 
       ul.querySelectorAll("li").forEach((item) => {
-        item.addEventListener("click", () => {
+        item.addEventListener("mouseover", () => {
           parent.postMessage(
             {
               pluginMessage: { type: "lock-item", clickItem: item.dataset.id },
@@ -44,6 +60,20 @@
         });
       });
     }
+
+    ul.querySelectorAll("li").forEach((item) => {
+      item.querySelector("i").addEventListener("click", function (e) {
+        this.parentNode.parentNode.parentNode.removeChild(
+          this.parentNode.parentNode
+        );
+        parent.postMessage(
+          {
+            pluginMessage: { type: "unlock-once", click: item.dataset.id },
+          },
+          "*"
+        );
+      });
+    });
 
     if (message.empty === 0 && message.isLockArr == null) {
       ul.innerHTML = "";
@@ -109,6 +139,9 @@
     border-top: 1px solid hsl(240, 20%, 92%);
     transition: all 0.2s ease;
     cursor: default;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   li:last-child {
@@ -116,10 +149,47 @@
   }
 
   li:hover {
+    color: #3f4373;
     background: #f6f6f9;
+  }
+
+  li:hover i {
+    background: #3f4373;
+    color: white;
+    border-color: transparent;
+  }
+
+  li i {
+    font-size: 12px;
+    border: 1px solid hsl(240, 20%, 80%);
+    background: hsl(240, 20%, 94%);
+    padding: 3px 4px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-style: normal;
+    color: #3f4373;
+  }
+
+  li span {
+    font-size: 10px;
+    margin-right: 8px;
+    color: hsla(233, 18%, 48%, 0.6);
   }
 
   main {
     margin: 40px 0;
+  }
+
+  button {
+    font-size: 14px;
+    border: 1px solid hsl(240, 20%, 80%);
+    background: hsl(240, 20%, 94%);
+    padding: 3px 4px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-style: normal;
+    color: #3f4373;
   }
 </style>

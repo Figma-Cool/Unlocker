@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 300, height: 400 });
+figma.showUI(__html__, { width: 300, height: 480 });
 
 const node = figma.root.findAll()
 let isLockArr = [];
@@ -30,6 +30,10 @@ figma.ui.onmessage = (msg) => {
         clickItem.push(figma.getNodeById(msg.clickItem))
         figma.currentPage.selection = clickItem
     }
+
+    if (msg.type === "unlock-once") {
+        figma.getNodeById(msg.click).locked = false
+    }
 }
 
 figma.on('selectionchange', () => {
@@ -52,7 +56,7 @@ figma.on('selectionchange', () => {
             isLockArr,
             empty: 1
         })
-    } 
+    }
 })
 
 if (isLockArr == '') {
