@@ -25,8 +25,11 @@ figma.ui.onmessage = (msg) => {
         })
     }
 
-    if(msg.clickItem) {
+    if (msg.clickItem) {
         console.log('ssss')
+        let oo = []
+        oo.push('0:5123')
+        figma.currentPage.selection = oo
     }
 }
 
