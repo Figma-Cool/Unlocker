@@ -8,9 +8,10 @@
   const ul = document.querySelector("ul");
   const unlockBtn = document.querySelector("#unlock");
 
-  function createList(textContent) {
+  function createList(textContent, id) {
     let li = document.createElement("li");
     li.textContent = textContent;
+    li.setAttribute("data-id", id);
     ul.appendChild(li);
   }
 
@@ -27,18 +28,17 @@
     const message = event.data.pluginMessage;
     if (message.isLockArr) {
       message.isLockArr.forEach((item) => {
-        createList(item);
+        console.log(item[1]);
+        createList(item, item[1]);
       });
 
       ul.querySelectorAll("li").forEach((item) => {
         item.addEventListener("click", () => {
-          message.isLockArr.forEach((item) => {
-            console.log(item.name);
-            parent.postMessage(
-              { pluginMessage: { type: "lock-item", lockItem: item.name } },
-              "*"
-            );
-          });
+          console.log(item.dataset.id)
+          parent.postMessage(
+            { pluginMessage: { type: "lock-item", clickItem: item.dataset.id } },
+            "*"
+          );
         });
       });
     }

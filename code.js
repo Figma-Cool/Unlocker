@@ -24,6 +24,10 @@ figma.ui.onmessage = (msg) => {
             }
         })
     }
+
+    if(msg.clickItem) {
+        console.log('ssss')
+    }
 }
 
 figma.on('selectionchange', () => {
