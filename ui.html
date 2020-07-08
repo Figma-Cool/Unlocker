@@ -1,44 +1,31 @@
-<input type="text" id="link-input" /><button id="submit">sumit</button>
+<button id="unlock">All Unlock</button>
+<ul>
+  <li></li>
+</ul>
 <footer>
   Made by <a target="_blank" href="https://figma.cool">Figma.Cool</a>
 </footer>
 
 <script>
-  const input = document.querySelector("#link-input");
-  const submitBtn = document.querySelector("#submit");
-  let inputVal;
+  const ul = document.querySelector("ul");
+  const unlockBtn = document.querySelector("#unlock");
 
-  input.addEventListener("input", function (e) {
-    inputVal = e.target.value;
-    return inputVal;
-  });
-  submitBtn.addEventListener("click", function () {
-    if (document.querySelector("iframe")) {
-      let iframe = document.querySelector("iframe");
-      document.body.removeChild(iframe);
-    }
-    let iFrame = document.createElement("iframe");
-    iFrame.src = `https://${inputVal}`;
-    document.body.appendChild(iFrame);
+  unlockBtn.addEventListener("click", () => {
+    parent.postMessage(
+      { pluginMessage: { type: "fetch-fonts", click: "all" } },
+      "*"
+    );
   });
 
-  let Url = "https://avatars1.githubusercontent.com/u/1";
-
-  // function httpGetAsync(theUrl, callback) {
-  //   var xmlHttp = new XMLHttpRequest();
-  //   xmlHttp.onreadystatechange = function () {
-  //     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-  //       callback(xmlHttp.responseText);
-  //   };
-  //   xmlHttp.open("GET", theUrl, true); // true for asynchronous
-  //   xmlHttp.send(null);
-  // }
-
-  var img = document.createElement("img");
-  img.src =Url
-  document.body.appendChild(img);
-  // httpGetAsync(Url, function () {
-  // });
+  window.onmessage = async (event) => {
+    const message = event.data.pluginMessage;
+    console.log(message.isLoockArr);
+    message.isLoockArr.forEach((item) => {
+      let li = document.createElement("li");
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+  };
 </script>
 
 <style>
