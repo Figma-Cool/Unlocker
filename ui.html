@@ -15,18 +15,20 @@
     let unlockBtn = document.createElement("i");
     let typeTag = document.createElement("span");
     let group = document.createElement("div");
+    textContent = textContent.slice(0, 11);
+    textContent.length > 10 ? (textContent = textContent + "...") : null;
     li.setAttribute("data-id", id);
     unlockBtn.textContent = "Unlock";
     typeTag.textContent = type;
     type === "FRAME" ? `${(li.textContent = `🖼 ` + textContent)}` : null;
-    type === "VECTOR" ? `${(li.textContent = `🔏 ` + textContent)}` : null;
-    type === "ELLIPSE" ? `${(li.textContent = `🔏 ` + textContent)}` : null;
+    type === "VECTOR" ? `${(li.textContent = `〰️ ` + textContent)}` : null;
     type === "STAR" ? `${(li.textContent = `⭐️ ` + textContent)}` : null;
-    type === "RECTANGLE" ? `${(li.textContent = `⏹ ` + textContent)}` : null;
+    type === "RECTANGLE" ? `${(li.textContent = `⬛️ ` + textContent)}` : null;
     type === "ELLIPSE" ? `${(li.textContent = `💿 ` + textContent)}` : null;
-    type === "TEXT" ? `${(li.textContent = `🈳 ` + textContent)}` : null;
+    type === "TEXT" ? `${(li.textContent = `🔠 ` + textContent)}` : null;
     type === "GROUP" ? `${(li.textContent = `📦 ` + textContent)}` : null;
     type === "COMPONENT" ? `${(li.textContent = `🧩 ` + textContent)}` : null;
+    type === "BOOLEAN_OPERATION" ? `${(li.textContent = `〰️ ` + textContent)}` : null;
     group.appendChild(typeTag);
     group.appendChild(unlockBtn);
     li.appendChild(group);
@@ -39,7 +41,7 @@
       "*"
     );
     ul.innerHTML = "";
-    createList("🔓 All layers Unlocked");
+    // createList("🔓 All layers Unlocked");
   });
 
   window.onmessage = async (event) => {
@@ -77,7 +79,7 @@
 
     if (message.empty === 0 && message.isLockArr == null) {
       ul.innerHTML = "";
-      createList("🔓 All layers Unlocked");
+      // createList("🔓 All layers Unlocked");
     }
   };
 </script>
@@ -134,7 +136,7 @@
   li {
     font-size: 13px;
     line-height: 13px;
-    font-weight: 300;
+    font-weight: 500;
     padding: 8px 12px;
     border-top: 1px solid hsl(240, 20%, 92%);
     transition: all 0.2s ease;
