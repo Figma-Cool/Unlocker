@@ -1,6 +1,6 @@
-figma.showUI(__html__, { width: 300, height: 480 });
+figma.showUI(__html__, { width: 300, height: 700 });
 
-const node = figma.root.findAll()
+const node = figma.currentPage.findAll()
 let isLockArr = [];
 
 
@@ -21,18 +21,20 @@ figma.ui.onmessage = (msg) => {
         node.forEach(item => {
             if (item.locked) {
                 item.locked = false
+                figma.notify('👌All Unlocked', { timeout: 1 })
             }
         })
     }
 
-    if (msg.clickItem) {
-        let clickItem = []
-        clickItem.push(figma.getNodeById(msg.clickItem))
-        figma.currentPage.selection = clickItem
+    if (msg.hoverItem) {
+        let hoverItem = []
+        hoverItem.push(figma.getNodeById(msg.hoverItem))
+        figma.currentPage.selection = hoverItem
     }
 
     if (msg.type === "unlock-once") {
-        figma.getNodeById(msg.click).locked = false
+        figma.getNodeById(msg.click).locked = false;
+        figma.notify('👌Unlocked', { timeout: 1 })
     }
 }
 

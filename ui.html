@@ -1,6 +1,13 @@
 <main>
-  <button id="unlock">All Unlock</button>
+  <header>
+    <h1>Layers Locked: <i id="layer-count">0</i></h1>
+    <button id="unlock">⚡️All Unlock</button>
+  </header>
   <ul></ul>
+  <div id="empty-pic">
+    🔓
+    <p>No Layers have been locked</p>
+  </div>
 </main>
 <footer>
   Made by <a target="_blank" href="https://figma.cool">Figma.Cool</a>
@@ -9,6 +16,8 @@
 <script>
   const ul = document.querySelector("ul");
   const unlockBtn = document.querySelector("#unlock");
+  const emptyPic = document.querySelector("#empty-pic");
+  let layerCount = document.querySelector("#layer-count").textContent;
 
   function createList(textContent, id, type) {
     let li = document.createElement("li");
@@ -28,7 +37,9 @@
     type === "TEXT" ? `${(li.textContent = `🔠 ` + textContent)}` : null;
     type === "GROUP" ? `${(li.textContent = `📦 ` + textContent)}` : null;
     type === "COMPONENT" ? `${(li.textContent = `🧩 ` + textContent)}` : null;
-    type === "BOOLEAN_OPERATION" ? `${(li.textContent = `〰️ ` + textContent)}` : null;
+    type === "BOOLEAN_OPERATION"
+      ? `${(li.textContent = `〰️ ` + textContent)}`
+      : null;
     group.appendChild(typeTag);
     group.appendChild(unlockBtn);
     li.appendChild(group);
@@ -41,21 +52,30 @@
       "*"
     );
     ul.innerHTML = "";
+    emptyPic.classList.add("empty-show");
+    document.querySelector("#layer-count").textContent = 0;
     // createList("🔓 All layers Unlocked");
   });
 
   window.onmessage = async (event) => {
     const message = event.data.pluginMessage;
     if (message.isLockArr) {
+      document.querySelector("#layer-count").textContent =
+        message.isLockArr.length;
+      if (message.isLockArr.length) {
+        emptyPic.classList.remove("empty-show");
+      } else {
+        emptyPic.classList.add("empty-show");
+      }
       message.isLockArr.forEach((item) => {
         createList(item[0], item[1], item[2]);
       });
 
       ul.querySelectorAll("li").forEach((item) => {
-        item.addEventListener("mouseover", () => {
+        item.addEventListener("mouseenter", () => {
           parent.postMessage(
             {
-              pluginMessage: { type: "lock-item", clickItem: item.dataset.id },
+              pluginMessage: { type: "lock-item", hoverItem: item.dataset.id },
             },
             "*"
           );
@@ -74,6 +94,9 @@
           },
           "*"
         );
+
+        document.querySelector("#layer-count").textContent =
+          message.isLockArr.length - 1;
       });
     });
 
@@ -103,9 +126,22 @@
     text-decoration: underline;
   }
 
-  input {
-    width: 100%;
-    height: 48px;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+  }
+
+  header h1 {
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  header h1 i {
+    font-style: normal;
+    margin-right: 8px;
+    font-weight: 600;
   }
 
   footer {
@@ -130,7 +166,7 @@
 
   ul {
     width: 100%;
-    padding: 24px 0;
+    padding: 12px 0;
   }
 
   li {
@@ -180,18 +216,39 @@
   }
 
   main {
-    margin: 40px 0;
+    margin: 12px 0 40px 0;
+  }
+
+  #empty-pic {
+    width: 100%;
+    height: 75%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 56px;
+    align-self: center;
+  }
+
+  #empty-pic p {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .empty-show {
+    display: flex !important;
   }
 
   button {
     font-size: 14px;
-    border: 1px solid hsl(240, 20%, 80%);
-    background: hsl(240, 20%, 94%);
-    padding: 3px 4px;
+    line-height: 18px;
+    color: white;
+    background: #50b4f9;
+    padding: 4px 8px;
     border-radius: 3px;
     transition: all 0.2s ease;
     cursor: pointer;
     font-style: normal;
-    color: #3f4373;
+    border: none;
   }
 </style>
