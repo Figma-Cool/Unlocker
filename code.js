@@ -29,7 +29,9 @@ figma.ui.onmessage = (msg) => {
     if (msg.hoverItem) {
         let hoverItem = []
         hoverItem.push(figma.getNodeById(msg.hoverItem))
+        figma.viewport.scrollAndZoomIntoView(hoverItem);
         figma.currentPage.selection = hoverItem
+
     }
 
     if (msg.type === "unlock-once") {
