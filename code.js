@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 300, height: 700 });
+figma.showUI(__html__, { width: 300, height: 600 });
 
 const node = figma.currentPage.findAll()
 let isLockArr = [];

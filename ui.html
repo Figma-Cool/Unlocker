@@ -1,7 +1,7 @@
 <main>
   <header>
     <h1>Locked Layer: <i id="layer-count">0</i></h1>
-    <button id="unlock">⚡️All Unlock</button>
+    <button id="unlock">All Unlock</button>
   </header>
   <ul></ul>
   <div id="empty-pic">
@@ -24,24 +24,85 @@
     let unlockBtn = document.createElement("i");
     let typeTag = document.createElement("span");
     let group = document.createElement("div");
-    textContent = textContent.slice(0, 11);
-    textContent.length > 10 ? (textContent = textContent + "...") : null;
+    textContent = textContent.slice(0, 15);
+    textContent.length > 14 ? (textContent = textContent + "...") : null;
     li.setAttribute("data-id", id);
     unlockBtn.textContent = "Unlock";
     typeTag.textContent = type;
-    type === "FRAME" ? `${(li.textContent = `🖼 ` + textContent)}` : null;
-    type === "VECTOR" ? `${(li.textContent = `〰️ ` + textContent)}` : null;
-    type === "STAR" ? `${(li.textContent = `⭐️ ` + textContent)}` : null;
-    type === "RECTANGLE" ? `${(li.textContent = `⬛️ ` + textContent)}` : null;
-    type === "ELLIPSE" ? `${(li.textContent = `💿 ` + textContent)}` : null;
-    type === "TEXT" ? `${(li.textContent = `🔠 ` + textContent)}` : null;
-    type === "GROUP" ? `${(li.textContent = `📦 ` + textContent)}` : null;
-    type === "COMPONENT" ? `${(li.textContent = `🧩 ` + textContent)}` : null;
-    type === "INSTANCE" ? `${(li.textContent = `🧩 ` + textContent)}` : null;
-    type === "BOOLEAN_OPERATION"
-      ? `${(li.textContent = `〰️ ` + textContent)}`
+    type === "FRAME"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.09091 1V4.63636H11.9091V1H13.3636V4.63636H17V6.09091H13.3636V11.9091H17V13.3636H13.3636V17H11.9091V13.3636H6.09091V17H4.63636V13.3636H1V11.9091H4.63636V6.09091H1V4.63636H4.63636V1H6.09091ZM11.9091 11.9091V6.09091H6.09091V11.9091H11.9091Z" fill="#3E4470"/>
+</svg>${textContent}</div>`)}`
       : null;
-    group.appendChild(typeTag);
+    type === "LINE"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2 9H16" stroke="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "SLICE"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.2 1H5.8V2.6H12.2V1ZM2.6 2.6V1H1V2.6H2.6ZM1 5.8H2.6V12.2H1V5.8ZM15.4 5.8H17V12.2H15.4V5.8ZM17 2.6H15.4V1H17V2.6ZM5.8 15.4H12.2V17H5.8V15.4ZM2.6 15.4H1V17H2.6V15.4ZM15.4 17V15.4H17V17H15.4Z" fill="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "VECTOR"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.93379 7.16386L4.40524 7.00607L4.23972 7.5611L4.76828 7.7189L4.93379 7.16386ZM5.26483 6.05379L4.73628 5.896L4.57076 6.45103L5.09931 6.60883L5.26483 6.05379ZM4.9029 5.34097L5.43145 5.49876L5.59696 4.94372L5.06841 4.78593L4.9029 5.34097ZM5.9291 3.83476L5.40055 3.67697L5.23503 4.232L5.76359 4.38979L5.9291 3.83476ZM12.0709 14.1994L12.5994 14.3572L12.765 13.8022L12.2364 13.6444L12.0709 14.1994ZM13.0971 12.6932L12.5686 12.5354L12.403 13.0905L12.9316 13.2483L13.0971 12.6932ZM12.7352 11.9804L13.2637 12.1382L13.4292 11.5832L12.9007 11.4254L12.7352 11.9804ZM13.0662 10.8703L13.5948 11.0281L13.7603 10.4731L13.2317 10.3153L13.0662 10.8703ZM6.24138 3.75862C7.00276 3.75862 7.62069 3.14069 7.62069 2.37931C7.62069 1.61793 7.00276 1 6.24138 1C5.48 1 4.86207 1.61793 4.86207 2.37931C4.86207 3.14069 5.48 3.75862 6.24138 3.75862ZM6.24138 1.55172C6.69821 1.55172 7.06896 1.92248 7.06896 2.37931C7.06896 2.83614 6.69821 3.2069 6.24138 3.2069C5.78455 3.2069 5.41379 2.83614 5.41379 2.37931C5.41379 1.92248 5.78455 1.55172 6.24138 1.55172ZM11.7586 14.2414C10.9972 14.2414 10.3793 14.8593 10.3793 15.6207C10.3793 16.3821 10.9972 17 11.7586 17C12.52 17 13.1379 16.3821 13.1379 15.6207C13.1379 14.8593 12.52 14.2414 11.7586 14.2414ZM11.7586 16.4483C11.3018 16.4483 10.931 16.0775 10.931 15.6207C10.931 15.1639 11.3018 14.7931 11.7586 14.7931C12.2154 14.7931 12.5862 15.1639 12.5862 15.6207C12.5862 16.0775 12.2154 16.4483 11.7586 16.4483ZM15.069 3.48276C14.1553 3.48276 13.4138 4.22428 13.4138 5.13793C13.4138 5.64 13.6411 6.08359 13.9942 6.38703C13.9821 6.3771 13.9666 6.37269 13.9545 6.36166C13.6808 6.97517 13.3277 7.72 12.9283 8.46262C11.2819 11.5214 10.3495 11.7586 10.1034 11.7586C10.0008 11.7586 9.80993 11.7586 9.67641 11.1561C9.55172 10.5945 9.55172 9.78455 9.55172 9C9.55172 8.15697 9.55172 7.28414 9.40055 6.60441C9.13131 5.39283 8.43393 5.13793 7.89655 5.13793C6.86593 5.13793 5.76138 6.16414 4.53214 8.25297L4.0731 8.11503L3.90759 8.67007L4.23972 8.76938C4.19338 8.85324 4.14814 8.92717 4.10069 9.01434C4.04993 9.10814 4.0091 9.19641 3.96055 9.29021L3.74207 9.2251L3.57655 9.78014L3.69352 9.81545C3.60414 9.99531 3.51476 10.1697 3.4331 10.3418L3.41103 10.3352L3.36579 10.4886C3.24883 10.7368 3.12745 10.9917 3.02924 11.2113C3.0469 11.2124 3.06234 11.2212 3.0789 11.2234C3.02814 11.2168 2.98179 11.2069 2.93103 11.2069C2.01738 11.2069 1.27586 11.9484 1.27586 12.8621C1.27586 13.7757 2.01738 14.5172 2.93103 14.5172C3.84469 14.5172 4.58621 13.7757 4.58621 12.8621C4.58621 12.36 4.35779 11.9164 4.00579 11.613C4.01793 11.6229 4.03448 11.6284 4.04552 11.6383C4.31917 11.0248 4.67228 10.28 5.07172 9.53738C6.71807 6.47862 7.65048 6.24138 7.89655 6.24138C7.99917 6.24138 8.19007 6.24138 8.32359 6.84386C8.44828 7.40552 8.44828 8.21655 8.44828 9C8.44828 9.84303 8.44828 10.7159 8.59945 11.3956C8.86869 12.6072 9.56607 12.8621 10.1034 12.8621C11.1297 12.8621 12.2287 11.8458 13.4513 9.77683L13.928 9.91917L14.0935 9.36414L13.7448 9.25931C13.7967 9.16552 13.8474 9.08276 13.9004 8.98455C13.9457 8.90069 13.9821 8.82234 14.0262 8.73848L14.2601 8.808L14.4257 8.25297L14.2932 8.21324C14.3826 8.03448 14.4731 7.85903 14.5548 7.6869L14.5912 7.69793L14.6662 7.44855C14.7721 7.22234 14.8836 6.98841 14.9741 6.78759C14.9564 6.78648 14.9421 6.77766 14.9244 6.77545C14.9719 6.78317 15.0193 6.7931 15.069 6.7931C15.9826 6.7931 16.7241 6.05159 16.7241 5.13793C16.7241 4.22428 15.9826 3.48276 15.069 3.48276ZM4.03448 12.8621C4.03448 13.4701 3.53903 13.9655 2.93103 13.9655C2.32303 13.9655 1.82759 13.4701 1.82759 12.8621C1.82759 12.2541 2.32303 11.7586 2.93103 11.7586C3.53903 11.7586 4.03448 12.2541 4.03448 12.8621ZM15.069 6.24138C14.461 6.24138 13.9655 5.74593 13.9655 5.13793C13.9655 4.52993 14.461 4.03448 15.069 4.03448C15.677 4.03448 16.1724 4.52993 16.1724 5.13793C16.1724 5.74593 15.677 6.24138 15.069 6.24138Z" fill="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "STAR"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 3.00958L10.413 7.35839L10.5253 7.70388H10.8885H15.4612L11.7618 10.3916L11.4679 10.6051L11.5802 10.9506L12.9932 15.2994L9.2939 12.6117L9 12.3982L8.70611 12.6117L5.00679 15.2994L6.4198 10.9506L6.53206 10.6051L6.23817 10.3916L2.53884 7.70388H7.11146H7.47474L7.58699 7.35839L9 3.00958Z" stroke="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "RECTANGLE"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.5 6.3H16.5V11.7H1.5V6.3Z" stroke="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "ELLIPSE"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.5 9C16.5 13.1421 13.1421 16.5 9 16.5C4.85787 16.5 1.5 13.1421 1.5 9C1.5 4.85787 4.85787 1.5 9 1.5C13.1421 1.5 16.5 4.85787 16.5 9Z" stroke="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "TEXT"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2 2H16V6.2H14.6V3.4H9.7V14.6H11.8V16H6.2V14.6H8.3V3.4H3.4V6.2H2V2Z" fill="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "GROUP"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.6 1H7.4V2.6H10.6V1ZM14.6 15.4H15.4V14.6H17V17H14.6V15.4ZM2.6 7.4V10.6H1V7.4H2.6ZM15.4 3.4V2.6H14.6V1H17V3.4H15.4ZM15.4 7.4V10.6H17V7.4H15.4ZM2.6 3.4V2.6H3.4V1H1V3.4H2.6ZM1 14.6H2.6V15.4H3.4V17H1V14.6ZM10.6 15.4H7.4V17H10.6V15.4Z" fill="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "COMPONENT"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.71709 4.26982L9 1L12.2829 4.26982L9 7.53964L5.71709 4.26982ZM4.26982 12.2844L1 9L4.26982 5.71709L7.53964 9L4.26982 12.2829V12.2844ZM12.2844 13.7302L9 17L5.71709 13.7302L9 10.4604L12.2829 13.7302H12.2844ZM17 9L13.7302 5.71709L10.4604 9L13.7302 12.2829L17 9Z" fill="#8375F7"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "INSTANCE"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1 9L9 1L17 9L9 17L1 9ZM9 15.2579L15.2579 9L9 2.74206L2.74206 9L9 15.2579Z" fill="#8375F7"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "POLYGON"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<path d="M9 1L13.6188 17H4.38119L9 1Z" stroke="#3E4470"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="18" height="18" fill="white"/>
+</clipPath>
+</defs>
+</svg>${textContent}</div>`)}`
+      : null;
+    type === "BOOLEAN_OPERATION"
+      ? `${(li.innerHTML = `<div><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.5 2.5H11.1923V11.1923H2.5V2.5Z" stroke="#3E4470"/>
+<path d="M10.6154 15.5C7.91769 15.5 5.73077 13.3131 5.73077 10.6154C5.73077 7.91769 7.91769 5.73077 10.6154 5.73077C13.3131 5.73077 15.5 7.91769 15.5 10.6154C15.5 13.3131 13.3131 15.5 10.6154 15.5Z" stroke="#3E4470"/>
+</svg>${textContent}</div>`)}`
+      : null;
+    // group.appendChild(typeTag);
     group.appendChild(unlockBtn);
     li.appendChild(group);
     ul.appendChild(li);
@@ -189,25 +250,40 @@
 
   li:hover {
     color: #3f4373;
-    background: #f6f6f9;
+    background: hsl(0, 0%, 97%);
   }
 
   li:hover i {
-    background: #3f4373;
-    color: white;
-    border-color: transparent;
+    opacity: 1;
   }
 
   li i {
     font-size: 12px;
     border: 1px solid hsl(240, 20%, 80%);
-    background: hsl(240, 20%, 94%);
+    /* background: hsl(240, 20%, 94%); */
     padding: 3px 4px;
     border-radius: 3px;
     transition: all 0.2s ease;
     cursor: pointer;
     font-style: normal;
     color: #3f4373;
+    opacity: 0;
+  }
+
+  li i:hover {
+    background: #3f4373;
+    color: white;
+    border-color: transparent;
+  }
+
+  li div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  li div svg {
+    margin-right: 8px;
   }
 
   li span {
@@ -233,7 +309,7 @@
 
   #empty-pic p {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   .empty-show {
