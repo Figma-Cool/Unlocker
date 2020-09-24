@@ -1,7 +1,7 @@
 <main>
   <header>
     <h1>Locked Layer: <i id="layer-count">0</i></h1>
-    <button id="unlock">All Unlock</button>
+    <button id="unlock">Unlock All</button>
   </header>
   <ul></ul>
   <div id="empty-pic">
@@ -134,7 +134,7 @@
       });
 
       ul.querySelectorAll("li").forEach((item) => {
-        item.addEventListener("mouseenter", () => {
+        item.addEventListener("click", () => {
           parent.postMessage(
             {
               pluginMessage: { type: "lock-item", hoverItem: item.dataset.id },
