@@ -3,5 +3,6 @@
   "id": "862912103841000337",
   "api": "1.0.0",
   "main": "code.js",
-  "ui": "ui.html"
+  "ui": "ui.html",
+  "relaunchButtons": [{ "command": "open", "name": "Run Unlocker" }]
 }
